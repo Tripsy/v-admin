@@ -1,5 +1,7 @@
+import ValueError from '@/lib/exceptions/valueError';
+
 interface RoutesElement {
-  path: string;
+  href: string;
   group: string | null;
 }
 
@@ -10,33 +12,33 @@ interface Routes {
 class RoutesCollection {
   data: Routes = {};
 
-  add(key: string, path: string, group?: string): void {
+  add(key: string, href: string, group?: string): void {
     this.data[key] = {
-      path: path,
+      href: href,
       group: group ?? null
     };
   }
 
   get(key: string, props?: object): string {
-    return this.#resolvePath(key, props);
+    return this.#resolveHref(key, props);
   }
 
-  #resolvePath(key: string, props?: object): string {
-    if (this.data[key].path === undefined) {
-      throw new ValueError('Route path not defined for: `' + path + '`');
+  #resolveHref(key: string, props?: object): string {
+    if (!this.data.hasOwnProperty(key)) {
+      throw new ValueError('Route not defined for: `' + key + '`')
     }
 
-    let path = this.data[key].path;
+    let href = this.data[key].href;
 
     if (props) {
       Object.entries(props).forEach(entry => {
         const [key, value] = entry;
 
-        path = path.replace(':' + key, value);
+        href = href.replace(':' + key, value);
       });
     }
 
-    return path;
+    return href;
   }
 }
 
@@ -44,7 +46,7 @@ let routes = new RoutesCollection();
 
 routes.add('home', '/');
 routes.add('dashboard', '/');
-routes.add('project-list', '/project', 'dashboard');
-routes.add('project-view', '/project/:key');
+routes.add('project-list', '/dashboard/project', 'dashboard');
+routes.add('project-view', '/dashboard/project/:key');
 
 export default routes;
