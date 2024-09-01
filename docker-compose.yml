@@ -1,0 +1,15 @@
+version: '3.7'
+services:
+    node:
+        container_name: next.test
+        ports:
+            - "3000:3000"
+        build:
+            context: .
+            dockerfile: docker/dockerfile
+        volumes:
+            - .:/var/www/html
+        tty: true
+networks:
+    local-coding:
+        external: true
