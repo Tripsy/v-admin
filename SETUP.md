@@ -18,5 +18,7 @@ INFO
     "scripts": {
         "build": "next build", // This script compiles your Next.js application for production. It optimizes the code, bundles the files, and prepares everything for deployment
         "dev": "next dev", // This script runs the Next.js development server. It provides features like hot-reloading, allowing you to see changes immediately as you develop; Use `pnpm dev` (or `npm run dev`) to start the development server.
-    "start": "next start" // This script runs the production build of your Next.js application. You use this command after running next build to start the server in production mode.
+        "start": "next start" // This script runs the production build of your Next.js application. You use this command after running next build to start the server in production mode.
     },
+
+pnpm next dev
